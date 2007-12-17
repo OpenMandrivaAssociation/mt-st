@@ -11,7 +11,6 @@ Patch1:		mt-st-0.7-SDLT.patch
 Patch2:		mt-st-0.7-config-files.patch
 Patch3:		mt-st-0.9b-manfix.patch
 Patch4:		mt-st-0.9b-mtio.patch
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description
 The mt-st package contains the mt and st tape drive management
