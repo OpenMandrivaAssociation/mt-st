@@ -1,7 +1,7 @@
 Summary:	Programs to control tape device operations
 Name:		mt-st
 Version:	0.9b
-Release:	%mkrel 3
+Release:	%mkrel 4
 License:	BSD
 Group:		Archiving/Backup
 URL:		ftp://metalab.unc.edu/pub/Linux/system/backup/
