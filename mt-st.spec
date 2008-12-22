@@ -1,7 +1,7 @@
 Summary:	Programs to control tape device operations
 Name:		mt-st
 Version:	0.9b
-Release:	%mkrel 5
+Release:	%mkrel 6
 License:	BSD
 Group:		Archiving/Backup
 URL:		ftp://metalab.unc.edu/pub/Linux/system/backup/
@@ -11,6 +11,7 @@ Patch1:		mt-st-0.7-SDLT.patch
 Patch2:		mt-st-0.7-config-files.patch
 Patch3:		mt-st-0.9b-manfix.patch
 Patch4:		mt-st-0.9b-mtio.patch
+Patch5:		mt-st-0.9b-LDFLAGS.diff
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description
@@ -24,14 +25,15 @@ This package can help you manage tape drives.
 
 %setup -q
 %patch0 -p1 -b .redhat
-%patch1 -p1 -b .sdlt
+%patch1 -p0 -b .sdlt
 %patch2 -p1 -b .configfiles
 %patch3 -p1 -b .manfix
 %patch4 -p1 -b .mtio
+%patch5 -p0 -b .LDFLAGS
 
 %build
 
-%make CFLAGS="%{optflags}"
+%make CFLAGS="%{optflags}" LDFLAGS="%{ldflags}"
 
 %install
 rm -rf %{buildroot}
