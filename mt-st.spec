@@ -48,7 +48,7 @@ install -p -m755 %{SOURCE1} -D %{buildroot}%{_initddir}/stinit
 %_preun_service stinit
 
 %files
-%doc COPYING README README.stinit mt-st-%{version}.lsm stinit.def.examples
+%doc README README.stinit mt-st-%{version}.lsm stinit.def.examples
 /bin/mt
 /sbin/stinit
 %{_initddir}/stinit
