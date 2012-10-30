@@ -15,6 +15,7 @@ Patch1:		mt-st-1.1-SDLT.patch
 Patch2:		mt-st-0.7-config-files.patch
 Patch3:		mt-st-0.9b-manfix.patch
 Patch4:		mt-st-1.1-mtio.patch
+Requires(post,preun):	rpm-helper
 %if %{with uclibc}
 BuildRequires:	uClibc-devel
 %endif
