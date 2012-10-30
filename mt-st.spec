@@ -1,7 +1,7 @@
 Summary:	Programs to control tape device operations
 Name:		mt-st
 Version:	1.1
-Release:	%mkrel 6
+Release:	7
 License:	GPLv2+
 Group:		Archiving/Backup
 URL:		ftp://metalab.unc.edu/pub/Linux/system/backup/
@@ -12,8 +12,6 @@ Patch1:		mt-st-1.1-SDLT.patch
 Patch2:		mt-st-0.7-config-files.patch
 Patch3:		mt-st-0.9b-manfix.patch
 Patch4:		mt-st-1.1-mtio.patch
-#Patch5:		mt-st-0.9b-LDFLAGS.diff
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description
 The mt-st package contains the mt and st tape drive management
@@ -23,14 +21,12 @@ can control rewinding, ejecting, skipping files and blocks and more.
 This package can help you manage tape drives.
 
 %prep
-
 %setup -q
-%patch0 -p1 -b .redhat
-%patch1 -p1 -b .sdlt
-%patch2 -p1 -b .configfiles
-%patch3 -p1 -b .manfix
-%patch4 -p1 -b .mtio
-#%patch5 -p0 -b .LDFLAGS
+%patch0 -p1 -b .redhat~
+%patch1 -p1 -b .sdlt~
+%patch2 -p1 -b .configfiles~
+%patch3 -p1 -b .manfix~
+%patch4 -p1 -b .mtio~
 
 # fix encoding
 f=README.stinit
@@ -39,17 +35,11 @@ touch -r $f $f.new
 mv $f.new $f
 
 %build
-
 %make CFLAGS="%{optflags}"
 
 %install
-rm -rf %{buildroot}
-
 %makeinstall mandir=%{_mandir}
-install -D -p -m 0755 %{SOURCE1} %{buildroot}%{_initddir}/stinit
-
-%clean
-rm -rf %{buildroot}
+install -p -m755 %{SOURCE1} -D %{buildroot}%{_initddir}/stinit
 
 %post
 %_post_service stinit
@@ -58,11 +48,9 @@ rm -rf %{buildroot}
 %_preun_service stinit
 
 %files
-%defattr(-,root,root)
 %doc COPYING README README.stinit mt-st-%{version}.lsm stinit.def.examples
 /bin/mt
 /sbin/stinit
 %{_initddir}/stinit
 %{_mandir}/man1/mt.1*
 %{_mandir}/man8/stinit.8*
-
