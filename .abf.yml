@@ -1,4 +1,2 @@
 sources:
-  "mt-st-1.1.tar.gz:"	e42d7fb0f57ccbd5c791e3b968e0a4573e7f9857
-  "stinit.init:"	d34334696a15eb0ada884b74e18df2ce0cc5d65d
-  "stinit.service:"	70e5f109e141abef3963745797e2655e643d3357
+  mt-st-1.1.tar.gz: e42d7fb0f57ccbd5c791e3b968e0a4573e7f9857
