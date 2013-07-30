@@ -6,7 +6,7 @@ Version:	1.1
 Release:	8
 License:	GPLv2+
 Group:		Archiving/Backup
-URL:		ftp://metalab.unc.edu/pub/Linux/system/backup/
+Url:		ftp://metalab.unc.edu/pub/Linux/system/backup/
 Source0:	ftp://metalab.unc.edu/pub/Linux/system/backup/%{name}-%{version}.tar.gz
 Source1:	stinit.init
 Source2:	stinit.service
@@ -15,10 +15,10 @@ Patch1:		mt-st-1.1-SDLT.patch
 Patch2:		mt-st-0.7-config-files.patch
 Patch3:		mt-st-0.9b-manfix.patch
 Patch4:		mt-st-1.1-mtio.patch
-Requires(post,preun):	rpm-helper
 %if %{with uclibc}
 BuildRequires:	uClibc-devel
 %endif
+Requires(post,preun):	rpm-helper
 
 %description
 The mt-st package contains the mt and st tape drive management
@@ -40,11 +40,7 @@ This package can help you manage tape drives.
 
 %prep
 %setup -q
-%patch0 -p1 -b .redhat~
-%patch1 -p1 -b .sdlt~
-%patch2 -p1 -b .configfiles~
-%patch3 -p1 -b .manfix~
-%patch4 -p1 -b .mtio~
+%apply_patches
 
 # fix encoding
 f=README.stinit
@@ -93,3 +89,4 @@ install -p -m644 %{SOURCE2} -D %{buildroot}%{_unitdir}/stinit.service
 %{uclibc_root}/bin/mt
 %{uclibc_root}/sbin/stinit
 %endif
+
