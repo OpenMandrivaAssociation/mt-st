@@ -3,12 +3,11 @@
 Summary:	Programs to control tape device operations
 Name:		mt-st
 Version:	1.1
-Release:	8
+Release:	9
 License:	GPLv2+
 Group:		Archiving/Backup
 URL:		ftp://metalab.unc.edu/pub/Linux/system/backup/
 Source0:	ftp://metalab.unc.edu/pub/Linux/system/backup/%{name}-%{version}.tar.gz
-Source1:	stinit.init
 Source2:	stinit.service
 Patch0:		mt-st-1.1-redhat.patch
 Patch1:		mt-st-1.1-SDLT.patch
@@ -73,7 +72,6 @@ cp * .uclibc
 %endif
 
 %makeinstall mandir=%{_mandir}
-install -p -m755 %{SOURCE1} -D %{buildroot}%{_initddir}/stinit
 install -p -m644 %{SOURCE2} -D %{buildroot}%{_unitdir}/stinit.service
 
 %post
@@ -86,7 +84,6 @@ install -p -m644 %{SOURCE2} -D %{buildroot}%{_unitdir}/stinit.service
 %doc README README.stinit mt-st-%{version}.lsm stinit.def.examples
 /bin/mt
 /sbin/stinit
-%{_initddir}/stinit
 %{_unitdir}/stinit.service
 %{_mandir}/man1/mt.1*
 %{_mandir}/man8/stinit.8*
