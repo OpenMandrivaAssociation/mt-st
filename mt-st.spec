@@ -15,6 +15,8 @@ Patch1:		mt-st-1.1-SDLT.patch
 Patch2:		mt-st-0.7-config-files.patch
 Patch3:		mt-st-0.9b-manfix.patch
 Patch4:		mt-st-1.1-mtio.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=948457
+Patch5:		mt-st-1.1-options.patch
 Requires(post,preun):	rpm-helper
 %if %{with uclibc}
 BuildRequires:	uClibc-devel
@@ -45,6 +47,7 @@ This package can help you manage tape drives.
 %patch2 -p1 -b .configfiles~
 %patch3 -p1 -b .manfix~
 %patch4 -p1 -b .mtio~
+%patch5 -p1 -b .options~
 
 # fix encoding
 f=README.stinit
