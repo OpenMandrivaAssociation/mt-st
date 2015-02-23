@@ -1,5 +1,6 @@
 [Unit]
 Description=Initialize SCSI Tape Drives
+ConditionPathExists=/etc/stinit.def
 
 [Service]
 Type=oneshot
