@@ -1,7 +1,9 @@
+%bcond_without	uclibc
+
 Summary:	Programs to control tape device operations
 Name:		mt-st
 Version:	1.1
-Release:	17
+Release:	18
 License:	GPLv2+
 Group:		Archiving/Backup
 Url:		ftp://metalab.unc.edu/pub/Linux/system/backup/
@@ -18,6 +20,17 @@ Patch5:		mt-st-1.1-options.patch
 BuildRequires:	uClibc-devel
 %endif
 
+%package -n	uclibc-%{name}
+Summary:	Programs to control tape device operations (uClibc build)
+Group:		Archiving/Backup
+
+%description -n uclibc-%{name}
+The mt-st package contains the mt and st tape drive management
+programs. Mt (for magnetic tape drives) and st (for SCSI tape devices)
+can control rewinding, ejecting, skipping files and blocks and more.
+
+This package can help you manage tape drives.
+
 %description
 The mt-st package contains the mt and st tape drive management
 programs. Mt (for magnetic tape drives) and st (for SCSI tape devices)
@@ -26,7 +39,6 @@ can control rewinding, ejecting, skipping files and blocks and more.
 This package can help you manage tape drives.
 
 %prep
-
 %setup -q
 %patch0 -p1 -b .redhat~
 %patch1 -p1 -b .sdlt~
@@ -41,19 +53,36 @@ iconv -f ISO8859-1 -t UTF-8 -o $f.new $f
 touch -r $f $f.new
 mv $f.new $f
 
+%if %{with uclibc}
+mkdir .uclibc
+cp * .uclibc
+%endif
+
 %build
+%if %{with uclibc}
+%make -C .uclibc CC="%{uclibc_cc}" CFLAGS="%{uclibc_cflags}"
+%endif
 
 %make CFLAGS="%{optflags}"
 
 %install
+%if %{with uclibc}
+%makeinstall -C .uclibc mandir=%{_mandir} BINDIR=%{buildroot}%{uclibc_root}/bin SBINDIR=%{buildroot}%{uclibc_root}/sbin
+%endif
 
 %makeinstall mandir=%{_mandir}
 install -p -m644 %{SOURCE2} -D %{buildroot}%{_unitdir}/stinit.service
 
 %files
-%doc COPYING README README.stinit mt-st-%{version}.lsm stinit.def.examples
+%doc README README.stinit mt-st-%{version}.lsm stinit.def.examples
 /bin/mt
 /sbin/stinit
 %{_unitdir}/stinit.service
 %{_mandir}/man1/mt.1*
 %{_mandir}/man8/stinit.8*
+
+%if %{with uclibc}
+%files -n uclibc-%{name}
+%{uclibc_root}/bin/mt
+%{uclibc_root}/sbin/stinit
+%endif
