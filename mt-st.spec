@@ -1,9 +1,9 @@
-%bcond_without	uclibc
+%bcond_with	uclibc
 
 Summary:	Programs to control tape device operations
 Name:		mt-st
 Version:	1.1
-Release:	19
+Release:	20
 License:	GPLv2+
 Group:		Archiving/Backup
 Url:		ftp://metalab.unc.edu/pub/Linux/system/backup/
@@ -20,6 +20,7 @@ Patch5:		mt-st-1.1-options.patch
 BuildRequires:	uClibc-devel
 %endif
 
+%if %{with uclibc}
 %package -n	uclibc-%{name}
 Summary:	Programs to control tape device operations (uClibc build)
 Group:		Archiving/Backup
@@ -30,6 +31,7 @@ programs. Mt (for magnetic tape drives) and st (for SCSI tape devices)
 can control rewinding, ejecting, skipping files and blocks and more.
 
 This package can help you manage tape drives.
+%endif
 
 %description
 The mt-st package contains the mt and st tape drive management
