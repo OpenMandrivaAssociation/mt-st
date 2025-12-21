@@ -15,6 +15,7 @@ Patch4:		mt-st-1.1-mtio.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=948457
 Patch5:		mt-st-1.1-options.patch
 
+BuildRequires:	make
 %description
 The mt-st package contains the mt and st tape drive management
 programs. Mt (for magnetic tape drives) and st (for SCSI tape devices)
